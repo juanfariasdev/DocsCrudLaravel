@@ -28,3 +28,7 @@ Route::get('/register', function () {
     return view('authUser');
 });
 Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard.index');
+});
