@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])->name('dashboard.usuarios');
 
     Route::get('/dashboard/perfil', [DashboardController::class, 'perfil'])->name('perfil');
+    Route::post('/dashboard/perfil', [DashboardController::class, 'updatePerfil'])->name('perfil.update');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     // Adicione outras rotas protegidas aqui
