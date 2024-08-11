@@ -6,7 +6,7 @@
     @csrf
 
     <!-- Campo de E-mail -->
-    <x-input-field 
+    <x-partials.input-field 
         type="text" 
         name="email" 
         label="E-mail" 
@@ -15,7 +15,7 @@
     />
 
     <!-- Campo de Senha com Mostrar/Ocultar Senha -->
-    <x-input-field 
+    <x-partials.input-field 
         type="password" 
         name="password" 
         label="Senha" 
@@ -24,7 +24,7 @@
     />
 
     <!-- Botão de Enviar -->
-    <x-button text="Entrar" />
+    <x-partials.button text="Entrar" />
 
     <!-- Link para Cadastro -->
     <div class="mt-6 text-center">

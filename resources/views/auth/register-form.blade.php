@@ -1,11 +1,11 @@
-<div class="flex flex-col items-center">
+<div class="flex flex-partials.col items-center">
     <h1 class="text-2xl font-bold">Cadastrar</h1>
 </div>
-<form method="POST" action="/register" class="mx-auto max-w-xs mt-8">
+<form method="POST" action="/register" class="mx-partials.auto max-partials.w-xs mt-8">
     @csrf
 
     <!-- Campo de Nome Completo -->
-    <x-input-field 
+    <x-partials.input-field  
         type="text" 
         name="name" 
         label="Nome Completo" 
@@ -14,7 +14,7 @@
     />
 
     <!-- Campo de E-mail -->
-    <x-input-field 
+    <x-partials.input-field 
         type="text" 
         name="email" 
         label="E-mail" 
@@ -23,7 +23,7 @@
     />
 
     <!-- Campo de Senha -->
-    <x-input-field 
+    <x-partials.input-field 
         type="password" 
         name="password" 
         label="Senha" 
@@ -32,7 +32,7 @@
     />
 
     <!-- Campo de Confirmação de Senha -->
-    <x-input-field 
+    <x-partials.input-field 
         type="password" 
         name="password_confirmation" 
         label="Confirmar Senha" 
@@ -41,7 +41,7 @@
     />
 
     <!-- Botão de Cadastro -->
-    <x-button text="Cadastrar" />
+    <x-partials.button text="Cadastrar" />
 
     <!-- Link para Login -->
     <div class="mt-6 text-center">

@@ -1,13 +1,11 @@
 @extends('components.layouts.app')
 
 @section('content')
+<x-layouts.auth>
     @if (Request::is('login'))
-        <x-layouts.auth title="Login">
-            @include('auth.login-form')
-        </x-layouts.auth>
+        @include('auth.login-form')
     @else
-        <x-layouts.auth title="Cadastro">
-            @include('auth.register-form')
-        </x-layouts.auth>
+        @include('auth.register-form')
     @endif
+</x-layouts.auth>
 @endsection
