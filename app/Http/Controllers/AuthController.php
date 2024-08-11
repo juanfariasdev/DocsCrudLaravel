@@ -92,4 +92,15 @@ class AuthController extends Controller
     
         return redirect('/dashboard'); // Redirecionamento após cadastro bem-sucedido
     }    
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        // Invalidar a sessão do usuário e regenerar o token CSRF
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirecionar o usuário para a página de login após o logout
+        return redirect('/login');
+    }
 }

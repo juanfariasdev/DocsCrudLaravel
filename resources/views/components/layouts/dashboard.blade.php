@@ -46,11 +46,27 @@
                 <div>
                     <h1 class="text-2xl font-semibold text-gray-700">{{ $title ?? 'Dashboard' }}</h1>
                 </div>
-                <div class="flex items-center">
-                    <div class="relative">
-                        <button class="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
-                            <img class="h-full w-full object-cover" src="https://via.placeholder.com/150" alt="Avatar">
+                <div class="flex items-center relative">
+                    <div x-data="{ open: false }" class="relative">
+                        <button @click="open = !open" class="relative h-8 w-8 rounded-full bg-gray-500 text-white flex items-center justify-center overflow-hidden shadow focus:outline-none">
+                            <span class="text-lg font-semibold">
+                                {{ substr(auth()->user()->name, 0, 1) }}
+                            </span>
                         </button>
+
+                        <!-- Dropdown -->
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
+                            <div class="px-4 py-2">
+                                <span class="block text-sm text-gray-700">{{ auth()->user()->name }}</span>
+                                <span class="block text-sm text-gray-500">{{ auth()->user()->email }}</span>
+                            </div>
+                            <div class="border-t border-gray-100"></div>
+                            <a href="{{ route('perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perfil</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </header>
