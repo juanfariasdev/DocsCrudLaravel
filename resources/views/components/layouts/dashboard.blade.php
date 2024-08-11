@@ -7,7 +7,7 @@
             $menuItems = [
                 [
                     'name' => 'Dashboard',
-                    'route' => '#',
+                    'route' => 'dashboard',
                     'icon' => 'fas fa-tachometer-alt',
                 ],
                 [
