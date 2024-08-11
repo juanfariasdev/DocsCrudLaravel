@@ -27,14 +27,9 @@
         @endif
         <span id="togglePassword" class="absolute inset-y-0 right-3 flex items-center cursor-pointer w-5">
             <!-- Ícone de olho aberto -->
-            <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display: none;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.297 5 12 5c4.703 0 8.268 2.943 9.542 7a9.036 9.036 0 01-1.518 2.839M4.098 18.582A8.937 8.937 0 010 12c1.271-4.057 4.837-7 9.542-7 2.72 0 5.208 1.1 6.867 2.9" />
-            </svg>
+            <i id="eyeOpen" class="fas fa-eye" style="display: none;"></i>
             <!-- Ícone de olho fechado -->
-            <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18M9.3 9.3A3 3 0 0112 15a3 3 0 01-2.7-1.7M1.958 12C3.732 7.943 7.297 5 12 5c1.978 0 3.862.628 5.4 1.7M15 12a3 3 0 00-3-3m-9.042 1.839A9.036 9.036 0 002.458 12z" />
-            </svg>
+            <i id="eyeClosed" class="fas fa-eye-slash"></i>
         </span>
     </div>
 
@@ -64,11 +59,11 @@
         
         // Alterna entre os ícones de olho aberto e fechado
         if (type === 'text') {
-            eyeOpen.style.display = 'block';
+            eyeOpen.style.display = 'inline';
             eyeClosed.style.display = 'none';
         } else {
             eyeOpen.style.display = 'none';
-            eyeClosed.style.display = 'block';
+            eyeClosed.style.display = 'inline';
         }
     });
 </script>
