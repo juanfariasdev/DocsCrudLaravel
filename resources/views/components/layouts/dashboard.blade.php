@@ -31,7 +31,7 @@
                 ],
                 [
                     'name' => 'Usuários',
-                    'route' => '#',
+                    'route' => 'dashboard/usuarios',
                     'icon' => 'fas fa-users',
                 ],
             ];

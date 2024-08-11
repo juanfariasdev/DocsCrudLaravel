@@ -32,3 +32,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
+Route::get('/dashboard/usuarios', function () {
+    return view('dashboard.usuarios.index');
+});
