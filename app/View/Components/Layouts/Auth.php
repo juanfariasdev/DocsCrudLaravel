@@ -11,7 +11,7 @@ class Auth extends Component
     /**
      * The title of the page.
      *
-     * @var string
+     * @var string|null
      */
     public $title;
 
@@ -20,7 +20,8 @@ class Auth extends Component
      */
     public function __construct($title = null)
     {
-        $this->title = $title ? env('APP_NAME', 'Projeto') . ' - ' . $title : env('APP_NAME', 'projeto');
+        // Se um título for fornecido, use-o; caso contrário, use o nome da aplicação.
+        $this->title = $title ? config('app.name', 'Projeto') . ' - ' . $title : config('app.name', 'Projeto');
     }
 
     /**
@@ -28,6 +29,8 @@ class Auth extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layouts.auth');
+        return view('components.layouts.auth', [
+            'title' => $this->title,
+        ]);
     }
 }
