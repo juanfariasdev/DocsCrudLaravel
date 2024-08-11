@@ -2,11 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    // Método para exibir o formulário de login
+    public function showLoginForm()
+    {
+        return view('authUser'); // Certifique-se de que a view 'authUser' existe
+    }
+
+    // Método para exibir o formulário de registro
+    public function showRegistrationForm()
+    {
+        return view('authUser'); // Certifique-se de que a view 'authUser' existe
+    }
+
     public function login(Request $request)
     {
         // Regras de validação
@@ -25,22 +40,27 @@ class AuthController extends Controller
                         ->withInput();
         }
 
-        // Se a validação passar
-        return redirect('/home'); // Exemplo de redirecionamento após login bem-sucedido
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Autenticação bem-sucedida, redirecionar para a página inicial
+            return redirect('/dashboard');
+        } else {
+            // Falha na autenticação, redirecionar de volta com mensagem de erro
+            return redirect('/login')
+                        ->withErrors(['email' => 'As credenciais fornecidas estão incorretas.'])
+                        ->withInput();
+        }
     }
+
     public function register(Request $request)
     {
         // Regras de validação
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ];
-        // $rules = [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:users,email',
-        //     'password' => 'required|min:6|confirmed',
-        // ];
     
         // Mensagens de validação personalizadas
         $messages = [
@@ -63,9 +83,13 @@ class AuthController extends Controller
                         ->withInput();
         }
     
-        // Se a validação passar, você pode salvar o usuário no banco de dados aqui
-        // User::create([...]);
+        // Criação do usuário no banco de dados
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Hashing da senha
+        ]);
     
-        return redirect('/home'); // Exemplo de redirecionamento após cadastro bem-sucedido
+        return redirect('/dashboard'); // Redirecionamento após cadastro bem-sucedido
     }    
 }
