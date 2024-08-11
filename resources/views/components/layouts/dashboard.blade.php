@@ -1,45 +1,43 @@
 @extends('components.layouts.app')
 
 @section('content')
-    <!-- Menu Lateral Esquerdo -->
     <div class="flex w-full">
-        <div class="w-56 bg-white h-screen shadow-lg">
-            <div class="p-6 text-xl font-semibold">
-                {{ config('app.name', 'Dashboard') }}
-            </div>
-            <nav class="text-gray-700 text-base pt-3">
-                <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
-                </a>
-                <div>
-                    <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                        <i class="fas fa-chart-line mr-3"></i>
-                        Main
-                    </a>
-                    <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                        <i class="fas fa-chart-pie mr-3"></i>
-                        Analytics
-                    </a>
-                    <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                        <i class="fas fa-chart-bar mr-3"></i>
-                        Fintech
-                    </a>
-                </div>
-                <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                    <i class="fas fa-tasks mr-3"></i>
-                    Tarefas
-                </a>
-                <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                    <i class="fas fa-file-alt mr-3"></i>
-                    Relatórios
-                </a>
-                <a href="#" class="flex items-center py-2 pl-4 nav-item hover:bg-green-100 hover:text-green-800">
-                    <i class="fas fa-users mr-3"></i>
-                    Usuários
-                </a>
-            </nav>
-        </div>
+        
+        @php
+            $menuItems = [
+                [
+                    'name' => 'Dashboard',
+                    'route' => '#',
+                    'icon' => 'fas fa-tachometer-alt',
+                ],
+                [
+                    'name' => 'Main',
+                    'route' => '#',
+                    'icon' => 'fas fa-chart-line',
+                    'subMenu' => [
+                        ['name' => 'Analytics', 'route' => '#', 'icon' => 'fas fa-chart-pie'],
+                        ['name' => 'Fintech', 'route' => '#', 'icon' => 'fas fa-chart-bar'],
+                    ]
+                ],
+                [
+                    'name' => 'Tarefas',
+                    'route' => '#',
+                    'icon' => 'fas fa-tasks',
+                ],
+                [
+                    'name' => 'Relatórios',
+                    'route' => '#',
+                    'icon' => 'fas fa-file-alt',
+                ],
+                [
+                    'name' => 'Usuários',
+                    'route' => '#',
+                    'icon' => 'fas fa-users',
+                ],
+            ];
+        @endphp
+
+        <x-partials.menu :menuItems="$menuItems" />
 
         <!-- Área Principal -->
         <div class="flex-1 flex flex-col">

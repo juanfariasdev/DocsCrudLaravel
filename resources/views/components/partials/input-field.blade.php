@@ -2,7 +2,7 @@
 
 <div class="mb-4">
     @if($label)
-        <label for="{{ $name }}" class="block text-sm font-medium text-gray-700">{{ $label }}</label>
+        <label for="{{ $name }}" class="block text-base font-medium text-gray-700">{{ $label }}</label>
     @endif
     
     <div class="relative">
@@ -12,7 +12,7 @@
             type="{{ $type }}" 
             value="{{ old($name, $value) }}" 
             placeholder="{{ $placeholder }}" 
-            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white @error($name) border-red-500 @enderror"
+            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-base focus:outline-none focus:border-gray-400 focus:bg-white @error($name) border-red-500 @enderror"
             {{ $required ? 'required' : '' }}
         />
         
@@ -25,7 +25,7 @@
     </div>
 
     @error($name)
-        <span class="text-red-500 text-sm">{{ $message }}</span>
+        <span class="text-red-500 text-base">{{ $message }}</span>
     @enderror
 </div>
 
