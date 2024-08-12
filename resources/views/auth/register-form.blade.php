@@ -1,7 +1,7 @@
-<div class="flex flex-partials.col items-center">
+<div class="flex flex-col items-center">
     <h1 class="text-2xl font-bold">Cadastrar</h1>
 </div>
-<form method="POST" action="/register" class="mx-partials.auto max-partials.w-xs mt-8">
+<form method="POST" action="/register" class="mx-auto max-w-xs mt-8">
     @csrf
 
     <!-- Campo de Nome Completo -->
@@ -40,6 +40,13 @@
         required
     />
 
+    <!-- Campo de Seleção de Tipo de Usuário -->
+    <x-partials.select-field 
+                name="type" 
+                label="Tipo de Usuário" 
+                :options="['Empresa', 'Funcionario']" 
+                required
+            />
     <!-- Botão de Cadastro -->
     <x-partials.button text="Cadastrar" />
 

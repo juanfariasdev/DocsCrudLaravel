@@ -54,14 +54,17 @@ class UserService
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'type' => 'required|string|in:Admin,Empresa,Funcionario,Convidado',
         ]);
-
+    
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'type' => $request->input('type'),
         ]);
     }
+    
     public function getAllUsers()
     {
         // Recupera todos os usuários

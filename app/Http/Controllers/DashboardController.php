@@ -52,6 +52,18 @@ class DashboardController extends Controller
         return redirect()->route('dashboard.usuarios.editar', ['id' => $id])->with('status', 'Usuário atualizado com sucesso!');
     }
 
+    public function showStoreUsuario()
+    {
+        return view('dashboard.usuarios.cadastrar');
+    }
+    
+    public function storeUsuario(Request $request)
+    {
+        $this->userService->registerUser($request);
+    
+        return redirect()->route('dashboard.usuarios')->with('status', 'Usuário cadastrado com sucesso!');
+    }
+
     /**
      * Exibe a página de perfil do usuário.
      */
