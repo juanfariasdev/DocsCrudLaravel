@@ -2,42 +2,7 @@
 
 @section('content')
     <div class="flex w-full">
-        
-        @php
-            $menuItems = [
-                [
-                    'name' => 'Dashboard',
-                    'route' => 'dashboard',
-                    'icon' => 'fas fa-tachometer-alt',
-                ],
-                [
-                    'name' => 'Main',
-                    'route' => '#',
-                    'icon' => 'fas fa-chart-line',
-                    'subMenu' => [
-                        ['name' => 'Analytics', 'route' => '#', 'icon' => 'fas fa-chart-pie'],
-                        ['name' => 'Fintech', 'route' => '#', 'icon' => 'fas fa-chart-bar'],
-                    ]
-                ],
-                [
-                    'name' => 'Tarefas',
-                    'route' => '#',
-                    'icon' => 'fas fa-tasks',
-                ],
-                [
-                    'name' => 'Relatórios',
-                    'route' => '#',
-                    'icon' => 'fas fa-file-alt',
-                ],
-                [
-                    'name' => 'Usuários',
-                    'route' => 'dashboard/usuarios',
-                    'icon' => 'fas fa-users',
-                ],
-            ];
-        @endphp
-
-        <x-partials.menu :menuItems="$menuItems" />
+    <x-partials.menu :menuItems="$menuItems" />
 
         <!-- Área Principal -->
         <div class="flex-1 flex flex-col">

@@ -5,15 +5,12 @@
 ])
 
 @php
-    // Classe padrão para links de navegação
     $baseClass = 'flex items-center py-2 px-4 nav-item transition-all duration-300 ease-in-out';
 
-    // Função para gerar a classe final de cada item
     function generateItemClass($item, $baseClass, $class, $activeClass) {
         return request()->is($item['route']) ? "$baseClass $activeClass" : "$baseClass $class";
     }
 
-    // Função para garantir que a rota comece com '/'
     function formatRoute($route) {
         return '/' . ltrim($route, '/');
     }
@@ -31,7 +28,7 @@
                     <i class="{{ $menuItem['icon'] }} mr-3"></i>
                     <span>{{ $menuItem['name'] }}</span>
                     @if(isset($menuItem['subMenu']))
-                        <i class="fas fa-chevron-down ml-auto"></i> {{-- Ícone de seta apontando para baixo --}}
+                        <i class="fas fa-chevron-down ml-auto"></i>
                     @endif
                 </a>
                 @if (isset($menuItem['subMenu']))

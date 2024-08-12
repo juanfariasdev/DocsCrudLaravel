@@ -28,15 +28,15 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-// Rotas protegidas (autenticadas)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])->name('dashboard.usuarios');
+    Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])
+        ->middleware('can:view-dashboard-usuarios')
+        ->name('dashboard.usuarios');
 
     Route::get('/dashboard/perfil', [DashboardController::class, 'perfil'])->name('perfil');
     Route::post('/dashboard/perfil', [DashboardController::class, 'updatePerfil'])->name('perfil.update');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    // Adicione outras rotas protegidas aqui
 });
