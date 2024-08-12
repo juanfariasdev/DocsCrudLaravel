@@ -15,10 +15,7 @@ use App\Http\Controllers\AuthController;
 |
 */
 Route::middleware('guest')->group(function () {
-    // Rota raiz redirecionando para a página de login
-    Route::get('/', function () {
-        return redirect('/login');
-    });
+    Route::redirect('/', '/login');
 
     // Rotas de autenticação
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -28,32 +25,28 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
+// Rotas para usuários autenticados (auth)
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])
-        ->middleware('can:view-dashboard-usuarios')
-        ->name('dashboard.usuarios');
-    
-    Route::get('/dashboard/usuarios/cadastrar', [DashboardController::class, 'showStoreUsuario'])
-    ->middleware('can:edit-dashboard-usuarios')
-    ->name('dashboard.usuarios.cadastrar');
+    // Rotas do Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 
-    Route::post('/dashboard/usuarios', [DashboardController::class, 'storeUsuario'])
-    ->middleware('can:edit-dashboard-usuarios')
-    ->name('dashboard.usuarios.store');
+        // Rotas para Gerenciamento de Usuários
+        Route::middleware('can:view-dashboard-usuarios')->group(function () {
+            Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])->name('usuarios');
+            Route::get('/dashboard/usuarios/cadastrar', [DashboardController::class, 'showStoreUsuario'])->name('usuarios.cadastrar');
+            Route::get('/dashboard/usuarios/{id}', [DashboardController::class, 'usuarioById'])->name('usuarios.editar');
+        });
 
-    Route::get('/dashboard/usuarios/{id}', [DashboardController::class, 'usuarioById'])
-    ->middleware('can:view-dashboard-usuarios')
-    ->name('dashboard.usuarios.editar');
-    
-    Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUsuario'])
-    ->middleware('can:view-dashboard-usuarios')
-    ->name('dashboard.usuarios.update');
+        Route::middleware('can:edit-dashboard-usuarios')->group(function () {
+            Route::post('/dashboard/usuarios', [DashboardController::class, 'storeUsuario'])->name('usuarios.store');
+            Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUsuario'])->name('usuarios.update');
+        });
 
+        // Rotas para Perfil do Usuário
+        Route::get('/dashboard/perfil', [DashboardController::class, 'perfil'])->name('perfil');
+        Route::post('/dashboard/perfil', [DashboardController::class, 'updatePerfil'])->name('perfil.update');
 
-    Route::get('/dashboard/perfil', [DashboardController::class, 'perfil'])->name('perfil');
-    Route::post('/dashboard/perfil', [DashboardController::class, 'updatePerfil'])->name('perfil.update');
-
+    // Rota de logout
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

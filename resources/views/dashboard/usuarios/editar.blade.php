@@ -8,7 +8,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('dashboard.usuarios.update', ['id' => $user->id]) }}">
+        <form method="POST" action="{{ route('usuarios.update', ['id' => $user->id]) }}">
             @csrf
             @method('PUT')
 

@@ -8,7 +8,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('dashboard.usuarios.store') }}">
+        <form method="POST" action="{{ route('usuarios.store') }}">
             @csrf
 
             <!-- Campo de Nome -->

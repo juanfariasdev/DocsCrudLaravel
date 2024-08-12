@@ -49,7 +49,7 @@ class DashboardController extends Controller
     public function updateUsuario(Request $request, $id)
     {
         $this->userService->updateUsuario($request, $id);
-        return redirect()->route('dashboard.usuarios.editar', ['id' => $id])->with('status', 'Usuário atualizado com sucesso!');
+        return redirect()->route('usuarios.editar', ['id' => $id])->with('status', 'Usuário atualizado com sucesso!');
     }
 
     public function showStoreUsuario()
@@ -61,7 +61,7 @@ class DashboardController extends Controller
     {
         $this->userService->registerUser($request);
     
-        return redirect()->route('dashboard.usuarios')->with('status', 'Usuário cadastrado com sucesso!');
+        return redirect()->route('usuarios')->with('status', 'Usuário cadastrado com sucesso!');
     }
 
     /**
