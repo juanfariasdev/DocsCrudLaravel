@@ -33,9 +33,11 @@
                                 <a href="{{ route('usuarios.editar', ['id' => $user->id]) }}" class="text-blue-500 hover:text-blue-700">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a @click="openModal({{ $user }})" class="text-red-500 hover:text-red-700 cursor-pointer">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
+                                @if (Auth::id() !== $user->id)
+                                    <a @click="openModal({{ $user }})" class="text-red-500 hover:text-red-700 cursor-pointer">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                @endif
                             </div>
                         </td>
                     </tr>
