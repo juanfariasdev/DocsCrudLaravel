@@ -35,7 +35,21 @@ class DashboardController extends Controller
      */
     public function usuarios()
     {
-        return view('dashboard.usuarios.index');
+        $users = $this->userService->getAllUsers();
+
+        return view('dashboard.usuarios.index', compact('users'));
+    }
+    public function usuarioById($id)
+    {
+        $user = $this->userService->getUserById($id);
+
+        return view('dashboard.usuarios.editar', compact('user'));
+    }
+
+    public function updateUsuario(Request $request, $id)
+    {
+        $this->userService->updateUsuario($request, $id);
+        return redirect()->route('dashboard.usuarios.editar', ['id' => $id])->with('status', 'Usuário atualizado com sucesso!');
     }
 
     /**
