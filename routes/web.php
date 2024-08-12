@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::middleware('can:edit-dashboard-usuarios')->group(function () {
             Route::post('/dashboard/usuarios', [DashboardController::class, 'storeUsuario'])->name('usuarios.store');
             Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUsuario'])->name('usuarios.update');
+            Route::delete('/dashboard/usuarios/{id}', [DashboardController::class, 'deleteUsuario'])->name('usuarios.delete');
         });
 
         // Rotas para Perfil do Usuário

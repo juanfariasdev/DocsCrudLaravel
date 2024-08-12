@@ -51,6 +51,12 @@ class DashboardController extends Controller
         $this->userService->updateUsuario($request, $id);
         return redirect()->route('usuarios.editar', ['id' => $id])->with('status', 'Usuário atualizado com sucesso!');
     }
+    public function deleteUsuario($id)
+    {
+        $this->userService->delete($id);
+
+        return redirect()->route('usuarios')->with('status', 'Usuário deletado com sucesso!');
+    }
 
     public function showStoreUsuario()
     {

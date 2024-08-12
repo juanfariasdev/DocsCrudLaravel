@@ -64,6 +64,10 @@ class UserService
             'type' => $request->input('type'),
         ]);
     }
+    public function delete($id)
+    {
+        User::destroy($id);
+    }
     
     public function getAllUsers()
     {
