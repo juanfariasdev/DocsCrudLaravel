@@ -30,12 +30,13 @@ Route::middleware('auth')->group(function () {
 
     // Rotas do Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+        Route::get('/dashboard/relatorio', [DashboardController::class, 'showRelatorioUsuario'])->name('usuarios.relatorio');
         // Rotas para Gerenciamento de Usuários
         Route::middleware('can:view-dashboard-usuarios')->group(function () {
             Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])->name('usuarios');
             Route::get('/dashboard/usuarios/cadastrar', [DashboardController::class, 'showStoreUsuario'])->name('usuarios.cadastrar');
             Route::get('/dashboard/usuarios/{id}', [DashboardController::class, 'usuarioById'])->name('usuarios.editar');
+            
         });
 
         Route::middleware('can:edit-dashboard-usuarios')->group(function () {

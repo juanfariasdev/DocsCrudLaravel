@@ -48,6 +48,10 @@ class UserService
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
+        if ($request->filled('type')) {
+            $user->type = $request->input('type');
+        }
+        
         $user->save();
 
         // Update or create address

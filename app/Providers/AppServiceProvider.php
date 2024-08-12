@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
                 $user = Auth::user();
                 $menuItems = $menuService->getMenuForUser($user);
                 $view->with('menuItems', $menuItems);
+                
                 $view->with('layout', 'components.layouts.dashboard');
             } else {
                 $view->with('layout', 'components.layouts.app');

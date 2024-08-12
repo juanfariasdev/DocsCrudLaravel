@@ -25,10 +25,18 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $users = $this->userService->getAllUsers();
+
         $menuItems = $this->menuService->getMenuForUser($user);
 
-        return view('dashboard.index', compact('menuItems'));
+        return view('dashboard.index', compact('menuItems', 'users'));
     }
+    public function showRelatorioUsuario()
+    {
+        $users = $this->userService->getAllUsers();
+        return view('dashboard.relatorio.index', compact('users'));
+    }
+
 
     /**
      * Exibe a página de usuários do dashboard.
@@ -78,7 +86,6 @@ class DashboardController extends Controller
         $user = Auth::user();
         return view('dashboard.perfil.index', compact('user'));
     }
-
     /**
      * Atualiza o perfil do usuário autenticado.
      */
@@ -87,4 +94,5 @@ class DashboardController extends Controller
         $this->userService->updateUserProfile($request, Auth::user());
         return redirect()->route('perfil')->with('status', 'Perfil atualizado com sucesso!');
     }
+
 }

@@ -33,8 +33,8 @@ class MenuService
                 'icon' => 'fas fa-users',
             ],
             [
-                'name' => 'Relatórios',
-                'route' => '#',
+                'name' => 'Relatório completo',
+                'route' => 'dashboard/relatorio',
                 'icon' => 'fas fa-file-alt',
             ],
             // Outros itens para admin...
@@ -50,9 +50,18 @@ class MenuService
                 'icon' => 'fas fa-tachometer-alt',
             ],
             [
-                'name' => 'Tarefas',
+                'name' => 'Main',
                 'route' => '#',
-                'icon' => 'fas fa-tasks',
+                'icon' => 'fas fa-chart-line',
+                'subMenu' => [
+                    ['name' => 'Analytics', 'route' => '#', 'icon' => 'fas fa-chart-pie'],
+                    ['name' => 'Fintech', 'route' => '#', 'icon' => 'fas fa-chart-bar'],
+                ]
+            ],
+            [
+                'name' => 'Relatório completo',
+                'route' => 'dashboard/relatorio',
+                'icon' => 'fas fa-file-alt',
             ],
             // Outros itens para empresa...
         ];
@@ -67,13 +76,9 @@ class MenuService
                 'icon' => 'fas fa-tachometer-alt',
             ],
             [
-                'name' => 'Main',
+                'name' => 'Tarefas',
                 'route' => '#',
-                'icon' => 'fas fa-chart-line',
-                'subMenu' => [
-                    ['name' => 'Analytics', 'route' => '#', 'icon' => 'fas fa-chart-pie'],
-                    ['name' => 'Fintech', 'route' => '#', 'icon' => 'fas fa-chart-bar'],
-                ]
+                'icon' => 'fas fa-tasks',
             ],
             // Outros itens para funcionário...
         ];
