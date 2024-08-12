@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
 
         // Rotas para Perfil do Usuário
         Route::get('/dashboard/perfil', [DashboardController::class, 'perfil'])->name('perfil');
-        Route::post('/dashboard/perfil', [DashboardController::class, 'updatePerfil'])->name('perfil.update');
+        Route::put('/dashboard/perfil', [DashboardController::class, 'updatePerfil'])->name('perfil.update');
 
     // Rota de logout
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

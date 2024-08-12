@@ -2,7 +2,7 @@
     <h1 class="text-2xl font-bold">Entrar</h1>
 </div>
 
-<form method="POST" action="/login" class="mx-auto max-w-xs mt-8">
+<form method="POST" action="/login" class="mx-auto w-full mt-8">
     @csrf
 
     <!-- Campo de E-mail -->
