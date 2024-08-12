@@ -16,7 +16,7 @@
             <h2 class="text-xl font-bold mb-4">Estatísticas Gerais</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-gray-100 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold">Tarefas Concluídas</h3>
+                    <h3 class="text-lg font-semibold">Quantidade total de usuários</h3>
                     <p class="text-3xl font-bold text-green-600">42</p>
                 </div>
                 <div class="bg-gray-100 p-4 rounded-lg">

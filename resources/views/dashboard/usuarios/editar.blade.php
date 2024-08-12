@@ -47,15 +47,18 @@
                 label="Confirmar Nova Senha" 
                 placeholder="Confirme sua nova senha"
             />
-
             <!-- Campo de Tipo de Usuário -->
-            <x-partials.select-field 
-                name="type" 
-                label="Tipo de Usuário" 
-                :options="['Admin', 'Empresa', 'Funcionario', 'Convidado']" 
-                value="{{ old('type', $user->type) }}"
-                required
-            />
+            @if($user->isAdmin())
+                <x-partials.select-field 
+                    name="type" 
+                    label="Tipo de Usuário" 
+                    :options="['Admin', 'Empresa', 'Funcionario', 'Convidado']" 
+                    value="{{ old('type', $user->type) }}"
+                    required
+                />
+            @endif
+
+           
 
             <!-- Botão de Salvar -->
             <div>

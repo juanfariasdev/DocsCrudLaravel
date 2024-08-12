@@ -32,12 +32,15 @@ class UserService
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id, // Verifica se o email é único, ignorando o email atual do usuário
             'password' => 'nullable|min:6|confirmed',
-            'type' => 'required|string|in:Admin,Empresa,Funcionario,Convidado',
+            'type' => 'nullable|string|in:Admin,Empresa,Funcionario,Convidado',
         ]);
     
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+
+        if ($request->filled('type')) {
         $user->type = $request->input('type');
+    }
     
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));

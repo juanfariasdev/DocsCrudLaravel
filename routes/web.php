@@ -38,7 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/usuarios/{id}', [DashboardController::class, 'usuarioById'])
         ->middleware('can:view-dashboard-usuarios')
         ->name('dashboard.usuarios.editar');
-        Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUsuario'])->name('dashboard.usuarios.update');
+    Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUsuario'])
+    ->middleware('can:view-dashboard-usuarios')
+    ->name('dashboard.usuarios.update');
+    
 
 
     Route::get('/dashboard/perfil', [DashboardController::class, 'perfil'])->name('perfil');

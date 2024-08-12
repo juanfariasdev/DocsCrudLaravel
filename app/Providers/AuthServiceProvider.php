@@ -27,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-dashboard-usuarios', function ($user) {
             return $user->isAdmin() || $user->isEmpresa();
         });
+        
+        Gate::define('edit-dashboard-usuarios', function ($user) {
+            return $user->isAdmin();
+        });
         //
     }
 }

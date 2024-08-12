@@ -24,6 +24,7 @@
                             <div class="px-4 py-2">
                                 <span class="block text-sm text-gray-700">{{ auth()->user()->name }}</span>
                                 <span class="block text-sm text-gray-500">{{ auth()->user()->email }}</span>
+                                <span class="block text-sm text-gray-500">{{ auth()->user()->type }}</span>
                             </div>
                             <div class="border-t border-gray-100"></div>
                             <a href="{{ route('perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perfil</a>
