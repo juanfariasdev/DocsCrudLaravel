@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type', // Adicionado campo 'type'
     ];
 
     /**
@@ -42,4 +43,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    // Constantes para os tipos de usuário
+    const TYPE_ADMIN = 'Admin';
+    const TYPE_EMPRESA = 'Empresa';
+    const TYPE_FUNCIONARIO = 'Funcionario';
+    const TYPE_CONVIDADO = 'Convidado';
+
+    // Método para verificar se o usuário é Admin
+    public function isAdmin()
+    {
+        return $this->type === self::TYPE_ADMIN;
+    }
+
+    // Método para verificar se o usuário é Empresa
+    public function isEmpresa()
+    {
+        return $this->type === self::TYPE_EMPRESA;
+    }
+
+    // Método para verificar se o usuário é Funcionario
+    public function isFuncionario()
+    {
+        return $this->type === self::TYPE_FUNCIONARIO;
+    }
+
+    // Método para verificar se o usuário é Convidado
+    public function isConvidado()
+    {
+        return $this->type === self::TYPE_CONVIDADO;
+    }
 }
