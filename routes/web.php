@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +27,17 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
+
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+
+    // Envio do link de redefinição de senha
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+    
+    // Formulário de redefinição de senha
+    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+    
+    // Redefinindo a senha
+    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 });
 
 // Rotas para usuários autenticados (auth)

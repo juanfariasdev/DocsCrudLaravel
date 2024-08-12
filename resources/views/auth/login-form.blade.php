@@ -22,6 +22,11 @@
         placeholder="Digite sua senha" 
         required
     />
+    <div class="mt-6 text-end">
+        <a href="{{ route('password.request') }}" class="text-sm text-gray-600 hover:underline">
+            Esqueceu sua senha?
+        </a>
+    </div>
 
     <!-- Botão de Enviar -->
     <x-partials.button text="Entrar" />
@@ -32,4 +37,5 @@
             Não tem uma conta? Cadastre-se aqui
         </a>
     </div>
+    
 </form>

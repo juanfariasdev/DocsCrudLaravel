@@ -8,6 +8,6 @@
         </div>
 
         <!-- Seção de Estatísticas -->
-        <x-relatory-form>
+        <x-relatory-form :users="$users"/>
     </div>
 </x-layouts.dashboard>
