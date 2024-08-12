@@ -58,14 +58,27 @@
                     required
                 />
 
+                <!-- Campo de CEP -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="cep" 
+                    label="CEP" 
+                    id="cep"
+                    value="{{ old('cep') }}" 
+                    placeholder="Digite o CEP" 
+                    required 
+                />
+
                 <!-- Campo de Rua -->
                 <x-partials.input-field 
                     type="text" 
                     name="rua" 
                     label="Rua" 
+                    id="rua"
                     value="{{ old('rua') }}" 
                     placeholder="Digite o nome da rua" 
                     required 
+                    readonly
                 />
 
                 <!-- Campo de Número -->
@@ -76,6 +89,7 @@
                     value="{{ old('numero') }}" 
                     placeholder="Digite o número" 
                     required 
+                    readonly
                 />
 
                 <!-- Campo de Bairro -->
@@ -83,19 +97,11 @@
                     type="text" 
                     name="bairro" 
                     label="Bairro" 
+                    id="bairro"
                     value="{{ old('bairro') }}" 
                     placeholder="Digite o bairro" 
                     required 
-                />
-
-                <!-- Campo de CEP -->
-                <x-partials.input-field 
-                    type="text" 
-                    name="cep" 
-                    label="CEP" 
-                    value="{{ old('cep') }}" 
-                    placeholder="Digite o CEP" 
-                    required 
+                    readonly
                 />
 
                 <!-- Campo de Cidade -->
@@ -103,9 +109,12 @@
                     type="text" 
                     name="cidade" 
                     label="Cidade" 
+                    id="cidade"
                     value="{{ old('cidade') }}" 
                     placeholder="Digite a cidade" 
                     required 
+                    readonly
+                    disabled
                 />
 
                 <!-- Campo de Estado -->
@@ -113,9 +122,12 @@
                     type="text" 
                     name="estado" 
                     label="Estado" 
+                    id="estado"
                     value="{{ old('estado') }}" 
                     placeholder="Digite o estado" 
                     required 
+                    readonly
+                    disabled
                 />
             </div>
 
@@ -125,4 +137,39 @@
             </div>
         </form>
     </div>
+
+    <!-- Script para Autocompletar o CEP -->
+    <script>
+        document.getElementById('cep').addEventListener('blur', function() {
+            const cep = this.value.replace(/\D/g, '');
+
+            if (cep.length === 8) {
+                const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            document.getElementById('rua').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('estado').value = data.uf;
+
+                            // Desbloqueia apenas os campos de rua, número, e bairro
+                            document.getElementById('rua').removeAttribute('readonly');
+                            document.getElementById('numero').removeAttribute('readonly');
+                            document.getElementById('bairro').removeAttribute('readonly');
+                        } else {
+                            alert('CEP não encontrado!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar CEP:', error);
+                        alert('Erro ao buscar CEP. Tente novamente.');
+                    });
+            } else {
+                alert('CEP inválido!');
+            }
+        });
+    </script>
 </x-layouts.dashboard>
