@@ -29,7 +29,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // Rotas do Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Rotas para Gerenciamento de Usuários
         Route::middleware('can:view-dashboard-usuarios')->group(function () {

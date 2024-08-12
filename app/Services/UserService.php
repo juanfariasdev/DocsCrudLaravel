@@ -27,26 +27,41 @@ class UserService
     public function updateUsuario(Request $request, $id)
     {
         $user = $this->getUserById($id);
-    
+
+        // Validate user data
         $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id, // Verifica se o email é único, ignorando o email atual do usuário
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
             'type' => 'nullable|string|in:Admin,Empresa,Funcionario,Convidado',
+            'rua' => 'required|string|max:255',
+            'numero' => 'required|string|max:20',
+            'bairro' => 'required|string|max:255',
+            'cep' => 'required|string|max:20',
+            'cidade' => 'required|string|max:255',
+            'estado' => 'required|string|max:50',
         ]);
-    
+
+        // Update user data
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-
-        if ($request->filled('type')) {
-        $user->type = $request->input('type');
-    }
-    
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
-    
         $user->save();
+
+        // Update or create address
+        $user->address()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'rua' => $request->input('rua'),
+                'numero' => $request->input('numero'),
+                'bairro' => $request->input('bairro'),
+                'cep' => $request->input('cep'),
+                'cidade' => $request->input('cidade'),
+                'estado' => $request->input('estado'),
+            ]
+        );
     }
     public function registerUser(Request $request)
     {

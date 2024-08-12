@@ -43,6 +43,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
+
     // Constantes para os tipos de usuário
     const TYPE_ADMIN = 'Admin';
     const TYPE_EMPRESA = 'Empresa';

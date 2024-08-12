@@ -1,52 +1,116 @@
 <div class="flex flex-col items-center">
     <h1 class="text-2xl font-bold">Cadastrar</h1>
 </div>
-<form method="POST" action="/register" class="mx-auto max-w-xs mt-8">
+<form method="POST" action="/register" class="w-full mt-8">
     @csrf
 
-    <!-- Campo de Nome Completo -->
-    <x-partials.input-field  
-        type="text" 
-        name="name" 
-        label="Nome Completo" 
-        placeholder="Digite seu nome completo" 
-        required
-    />
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Campo de Nome -->
+                <x-partials.input-field  
+                    type="text" 
+                    name="name" 
+                    label="Nome" 
+                    value="{{ old('name') }}" 
+                    placeholder="Digite o nome do usuário" 
+                    required
+                />
 
-    <!-- Campo de E-mail -->
-    <x-partials.input-field 
-        type="text" 
-        name="email" 
-        label="E-mail" 
-        placeholder="Digite seu e-mail" 
-        required
-    />
+                <!-- Campo de Email -->
+                <x-partials.input-field  
+                    type="email" 
+                    name="email" 
+                    label="Email" 
+                    value="{{ old('email') }}" 
+                    placeholder="Digite o email do usuário" 
+                    required
+                />
 
-    <!-- Campo de Senha -->
-    <x-partials.input-field 
-        type="password" 
-        name="password" 
-        label="Senha" 
-        placeholder="Digite sua senha" 
-        required
-    />
+                <!-- Campo de Senha -->
+                <x-partials.input-field 
+                    type="password" 
+                    name="password" 
+                    label="Senha" 
+                    placeholder="Digite a senha" 
+                    required
+                />
 
-    <!-- Campo de Confirmação de Senha -->
-    <x-partials.input-field 
-        type="password" 
-        name="password_confirmation" 
-        label="Confirmar Senha" 
-        placeholder="Confirme sua senha" 
-        required
-    />
+                <!-- Campo de Confirmação de Senha -->
+                <x-partials.input-field 
+                    type="password" 
+                    name="password_confirmation" 
+                    label="Confirmar Senha" 
+                    placeholder="Confirme a senha"
+                    required
+                />
 
-    <!-- Campo de Seleção de Tipo de Usuário -->
-    <x-partials.select-field 
-                name="type" 
-                label="Tipo de Usuário" 
-                :options="['Empresa', 'Funcionario']" 
-                required
-            />
+                <!-- Campo de Tipo de Usuário -->
+                <x-partials.select-field 
+                    name="type" 
+                    label="Tipo de Usuário" 
+                    :options="['Admin', 'Empresa', 'Funcionario', 'Convidado']" 
+                    required
+                />
+                
+                <!-- Campo de CEP -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="cep" 
+                    label="CEP" 
+                    value="{{ old('cep') }}" 
+                    placeholder="Digite o CEP" 
+                    required 
+                />
+
+                <!-- Campo de Rua -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="rua" 
+                    label="Rua" 
+                    value="{{ old('rua') }}" 
+                    placeholder="Digite o nome da rua" 
+                    required 
+                />
+
+                <!-- Campo de Número -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="numero" 
+                    label="Número" 
+                    value="{{ old('numero') }}" 
+                    placeholder="Digite o número" 
+                    required 
+                />
+
+                <!-- Campo de Bairro -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="bairro" 
+                    label="Bairro" 
+                    value="{{ old('bairro') }}" 
+                    placeholder="Digite o bairro" 
+                    required 
+                />
+
+                <!-- Campo de Cidade -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="cidade" 
+                    label="Cidade" 
+                    value="{{ old('cidade') }}" 
+                    placeholder="Digite a cidade" 
+                    required 
+                />
+
+                <!-- Campo de Estado -->
+                <x-partials.input-field 
+                    type="text" 
+                    name="estado" 
+                    label="Estado" 
+                    value="{{ old('estado') }}" 
+                    placeholder="Digite o estado" 
+                    required 
+                />
+            </div>
     <!-- Botão de Cadastro -->
     <x-partials.button text="Cadastrar" />
 
