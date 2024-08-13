@@ -28,7 +28,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "mkdir -p /path/to/your/project"
-    - sshpass -p "$SSH_PASSWORD" rsync -avz --delete --exclude='.git/' --exclude='storage/logs/' --exclude='.env' -e "ssh -p $SSH_PORT" ./ $SSH_USER@$SSH_HOST:/path/to/your/project/
+    - sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST "mkdir -p /public_html/crudlaravel/"
+    - sshpass -p "$SSH_PASSWORD" rsync -avz --delete --exclude='.git/' --exclude='storage/logs/' --exclude='.env' -e "ssh -p $SSH_PORT" ./ $SSH_USER@$SSH_HOST:/public_html/crudlaravel/
   only:
     - main
