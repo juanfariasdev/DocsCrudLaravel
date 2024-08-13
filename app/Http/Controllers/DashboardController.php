@@ -54,14 +54,14 @@ class DashboardController extends Controller
         return view('dashboard.usuarios.editar', compact('user'));
     }
 
-    public function updateUsuario(Request $request, $id)
+    public function updateUser(Request $request, $id)
     {
-        $this->userService->updateUsuario($request, $id);
+        $this->userService->updateUser($request, $id);
         return redirect()->route('usuarios.editar', ['id' => $id])->with('status', 'Usuário atualizado com sucesso!');
     }
     public function deleteUsuario($id)
     {
-        $this->userService->delete($id);
+        $this->userService->deleteUser($id);
 
         return redirect()->route('usuarios')->with('status', 'Usuário deletado com sucesso!');
     }
@@ -70,11 +70,11 @@ class DashboardController extends Controller
     {
         return view('dashboard.usuarios.cadastrar');
     }
-    
+
     public function storeUsuario(Request $request)
     {
         $this->userService->registerUser($request);
-    
+
         return redirect()->route('usuarios')->with('status', 'Usuário cadastrado com sucesso!');
     }
 
@@ -91,7 +91,7 @@ class DashboardController extends Controller
      */
     public function updatePerfil(Request $request)
     {
-        $this->userService->updateUserProfile($request, Auth::user());
+        $this->userService->updateUser($request, Auth::user()->id);
         return redirect()->route('perfil')->with('status', 'Perfil atualizado com sucesso!');
     }
 

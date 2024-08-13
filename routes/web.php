@@ -32,10 +32,10 @@ Route::middleware('guest')->group(function () {
 
     // Envio do link de redefinição de senha
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-    
+
     // Formulário de redefinição de senha
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-    
+
     // Redefinindo a senha
     Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 });
@@ -51,12 +51,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])->name('usuarios');
             Route::get('/dashboard/usuarios/cadastrar', [DashboardController::class, 'showStoreUsuario'])->name('usuarios.cadastrar');
             Route::get('/dashboard/usuarios/{id}', [DashboardController::class, 'usuarioById'])->name('usuarios.editar');
-            
+
         });
 
         Route::middleware('can:edit-dashboard-usuarios')->group(function () {
             Route::post('/dashboard/usuarios', [DashboardController::class, 'storeUsuario'])->name('usuarios.store');
-            Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUsuario'])->name('usuarios.update');
+            Route::put('/dashboard/usuarios/{id}', [DashboardController::class, 'updateUser'])->name('usuarios.update');
             Route::delete('/dashboard/usuarios/{id}', [DashboardController::class, 'deleteUsuario'])->name('usuarios.delete');
         });
 
