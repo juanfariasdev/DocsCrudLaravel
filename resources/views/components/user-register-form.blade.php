@@ -150,7 +150,7 @@
             />
         
         <div class="bg-primary bg-red-300 p-4 rounded mb-6 text-center font-bold">
-            Verifique se o local está 100% correto!
+            Empresas devem ter localização confirmada no mapa!
         </div>
         <!-- Mapa para confirmação de localização (somente para empresas) -->
         <div id="map-container" class="hidden md:col-span-2 h-64">

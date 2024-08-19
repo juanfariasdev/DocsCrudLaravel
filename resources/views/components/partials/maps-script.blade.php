@@ -92,15 +92,38 @@
         const coordinatesFields = document.getElementById('coordinates-fields');
         const mapContainer = document.getElementById('map-container');
 
+        const btnSearchAddress = document.getElementById('search-address');
+        const submitButtons = document.querySelectorAll('button[type="submit"]');
+
         const latitude = document.getElementById('latitude').value;
         const longitude = document.getElementById('longitude').value;
 
-        if ((userType === 'Empresa' && searchAddress) || (latitude && longitude)) {
+        // preciso bloquear o botão que for submit
+        // preciso bloquear o botão que for submit
+
+        if (userType === 'Empresa'){
+            btnSearchAddress.classList.remove('hidden');
+
+            submitButtons.forEach(button => {
+                button.disabled = true;
+            });
+
+        if ((searchAddress || (latitude && longitude))) {
             coordinatesFields.classList.remove('hidden');
             mapContainer.classList.remove('hidden');
+
+            submitButtons.forEach(button => {
+                button.disabled = false;
+            });
+        } 
         } else {
             coordinatesFields.classList.add('hidden');
             mapContainer.classList.add('hidden');
+            btnSearchAddress.classList.add('hidden');
+            submitButtons.forEach(button => {
+            button.disabled = false;
+        });
+
         }
     }
 
