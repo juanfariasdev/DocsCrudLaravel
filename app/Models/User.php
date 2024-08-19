@@ -47,6 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Address::class);
     }
+    public function business()
+    {
+        return $this->hasOne(Business::class);
+    }
 
     // Constantes para os tipos de usuário
     const TYPE_ADMIN = 'Admin';
