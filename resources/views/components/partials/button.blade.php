@@ -1,6 +1,6 @@
 @props([
     'type' => 'submit', 
-    'class' => 'bg-green-400 text-white hover:bg-green-700', 
+    'class' => 'button-primary', 
     'text' => 'Button', 
     'icon' => null,
 ])

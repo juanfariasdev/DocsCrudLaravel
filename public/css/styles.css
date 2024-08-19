@@ -1,0 +1,43 @@
+:root {
+    --color-primary-light: #d1fae5;
+    --color-primary: #dcfce7;
+
+    --color-green-100: #dcfce7;
+    --color-green-400: #4ade80;
+    --color-green-600: #16a34a;
+    --color-green-700: #15803d;
+    --color-green-800: #15803d;
+    --color-primary-dark: #065f46;
+
+    --color-secondary-light: #ffedd5;
+    --color-secondary: #f97316;
+    --color-secondary-dark: #7c2d12;
+
+    /* Adicione mais cores conforme necessário */
+}
+
+.text-primary {
+    color: var(--color-green-100);
+}
+
+.bg-primary {
+    background-color: var(--color-green-100);
+}
+
+.button-primary {
+    background-color: var(--color-green-400);
+    color: white;
+}
+.button-primary:hover {
+    background-color: var(--color-green-700);
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary);
+}
+
+
+.text-secondary {
+    color: var(--color-secondary);
+}
+

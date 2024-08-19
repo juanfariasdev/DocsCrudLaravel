@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="flex-1 bg-green-100 text-center hidden lg:flex">
+    <div class="flex-1 bg-primary text-center hidden lg:flex">
         <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
              style="background-image: url({{ asset('images/code.png') }});">
         </div>

@@ -8,7 +8,7 @@
             </button>
         </div>
         @if (session('status'))
-            <div class="bg-green-100 text-green-800 p-4 rounded mb-6">
+            <div class="bg-primary text-green-800 p-4 rounded mb-6">
                 {{ session('status') }}
             </div>
         @endif
