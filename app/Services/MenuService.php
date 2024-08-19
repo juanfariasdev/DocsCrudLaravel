@@ -6,38 +6,58 @@ class MenuService
 {
     public function getMenuForUser($user)
     {
+        $menu = $this->dashboardMenu();
+        
         if ($user->isAdmin()) {
-            return $this->adminMenu();
+            array_push($menu, ...$this->adminMenu());
         } elseif ($user->isEmpresa()) {
-            return $this->empresaMenu();
+            array_push($menu, ...$this->empresaMenu());
         } elseif ($user->isFuncionario()) {
-            return $this->funcionarioMenu();
-        } elseif ($user->isConvidado()) {
-            return $this->convidadoMenu();
-        }
+            array_push($menu, ...$this->funcionarioMenu());
+        } 
+        // elseif ($user->isConvidado()) {
+        //     return $this->convidadoMenu();
+        // }
 
-        return [];
+        return $menu;
+    }
+
+    private function dashboardMenu()
+    {
+        return [
+            [
+                'name' => 'Dashboard',
+                'route' => 'dashboard',
+                'icon' => 'fas fa-home'
+            ]
+        ];
     }
 
     private function adminMenu()
     {
         return [
             [
-                'name' => 'Dashboard',
-                'route' => 'dashboard',
-                'icon' => 'fas fa-tachometer-alt',
+                'name' => 'Administrador',
+                'route' => '#',
+                'icon' => 'fas fa-user-shield',
+                'subMenu' => [
+                    ['name' => 'Todos Usuários', 'route' => 'dashboard/usuarios', 'icon' => 'fas fa-users'],
+                    ['name' => 'Relatório completo', 'route' => 'dashboard/relatorio', 'icon' => 'fas fa-chart-pie'],
+                    // Outros itens para admin...
+                ]
             ],
             [
-                'name' => 'Usuários',
-                'route' => 'dashboard/usuarios',
-                'icon' => 'fas fa-users',
+                'name' => 'Empresa',
+                'route' => '#',
+                'icon' => 'fas fa-building',
+                'subMenu' => $this->empresaMenu()
             ],
             [
-                'name' => 'Relatório completo',
-                'route' => 'dashboard/relatorio',
-                'icon' => 'fas fa-file-alt',
+                'name' => 'Funcionário',
+                'route' => '#',
+                'icon' => 'fas fa-user-tie',
+                'subMenu' => $this->funcionarioMenu()
             ],
-            // Outros itens para admin...
         ];
     }
 
@@ -45,23 +65,9 @@ class MenuService
     {
         return [
             [
-                'name' => 'Dashboard',
-                'route' => 'dashboard',
-                'icon' => 'fas fa-tachometer-alt',
-            ],
-            [
-                'name' => 'Main',
-                'route' => '#',
-                'icon' => 'fas fa-chart-line',
-                'subMenu' => [
-                    ['name' => 'Analytics', 'route' => '#', 'icon' => 'fas fa-chart-pie'],
-                    ['name' => 'Fintech', 'route' => '#', 'icon' => 'fas fa-chart-bar'],
-                ]
-            ],
-            [
-                'name' => 'Relatório completo',
+                'name' => 'Relatório',
                 'route' => 'dashboard/relatorio',
-                'icon' => 'fas fa-file-alt',
+                'icon' => 'fas fa-chart-line',
             ],
             // Outros itens para empresa...
         ];
@@ -71,27 +77,17 @@ class MenuService
     {
         return [
             [
-                'name' => 'Dashboard',
-                'route' => 'dashboard',
-                'icon' => 'fas fa-tachometer-alt',
-            ],
-            [
                 'name' => 'Tarefas',
                 'route' => '#',
-                'icon' => 'fas fa-tasks',
+                'icon' => 'fas fa-clipboard-list',
             ],
             // Outros itens para funcionário...
         ];
     }
 
-    private function convidadoMenu()
-    {
-        return [
-            [
-                'name' => 'Dashboard',
-                'route' => 'dashboard',
-                'icon' => 'fas fa-tachometer-alt',
-            ],
-        ];
-    }
+    // private function convidadoMenu()
+    // {
+    //     // Como o convidado só tem o Dashboard, retornamos apenas o menu básico
+    //     return $this->dashboardMenu();
+    // }
 }
