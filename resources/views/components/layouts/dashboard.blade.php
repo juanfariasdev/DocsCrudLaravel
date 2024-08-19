@@ -34,7 +34,7 @@
             </header>
 
             <!-- Conteúdo Principal -->
-            <main class="p-6 overflow-y-scroll flex-1">
+            <main class="p-4 overflow-y-scroll flex-1">
                 {{ $slot }}
             </main>
         </div>
