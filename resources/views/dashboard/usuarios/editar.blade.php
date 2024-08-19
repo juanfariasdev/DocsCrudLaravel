@@ -1,3 +1,4 @@
+@section('title', 'Editar usuário')
 <x-layouts.dashboard>
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <h1 class="text-2xl font-bold mb-6">Editar Usuário</h1>

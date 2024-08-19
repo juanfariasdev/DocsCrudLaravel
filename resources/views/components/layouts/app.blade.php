@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Título dinâmico -->
-    <title>{{ $title ?? config('app.name', 'Projeto') }}</title>
+    <title>{{ $title ?? config('app.name', 'Projeto') }} - @yield('title', 'Dashboard')</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>

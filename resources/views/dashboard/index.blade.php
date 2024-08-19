@@ -1,3 +1,4 @@
+@section('title', $title ?? 'Início')
 <x-layouts.dashboard>
     <div class="flex flex-col gap-2">
         <!-- Seção de Bem-vindo e Ações Rápidas -->

@@ -1,3 +1,4 @@
+@section('title', 'Usuários')
 <x-layouts.dashboard>
     <!-- Seção de Gerenciamento de Usuários -->
     <div class="bg-white rounded-lg shadow-lg p-6" x-data="deleteUserModal()">

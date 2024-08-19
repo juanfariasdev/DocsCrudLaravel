@@ -1,3 +1,4 @@
+@section('title', 'Cadastrar usuário')
 <x-layouts.dashboard>
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">

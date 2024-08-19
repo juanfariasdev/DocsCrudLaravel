@@ -1,5 +1,4 @@
 @extends('components.layouts.app')
-
 @section('content')
     <div class="flex w-full max-h-screen overflow-hidden">
     <x-partials.menu :menuItems="$menuItems" />
@@ -9,7 +8,7 @@
             <!-- Cabeçalho -->
             <header class="bg-white shadow-lg p-4 flex justify-between items-center">
                 <div>
-                    <h1 class="text-2xl font-semibold text-gray-700">{{ $title ?? 'Dashboard' }}</h1>
+                    <h1 class="text-2xl font-semibold text-gray-700">@yield('title', $title?? "Dashboard")</h1>
                 </div>
                 <div class="flex items-center relative">
                     <div x-data="{ open: false }" class="relative">
