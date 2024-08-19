@@ -10,7 +10,8 @@
 
     // Inicializa o mapa com uma posição padrão
     function initMap() {
-        const initialPosition = { lat: -21.6803986, lng: -45.919 }; // Posição inicial padrão (São Paulo)
+
+        const initialPosition = { lat: -21.6803986, lng: -45.919 }; // Posição inicial padrão
 
         map = new google.maps.Map(document.getElementById('map'), {
             center: initialPosition,
@@ -26,13 +27,18 @@
         geocoder = new google.maps.Geocoder(); // Inicializa o geocoder
 
         // Atualiza as coordenadas nos campos quando o marcador é movido
-        google.maps.event.addListener(marker, 'dragend', updateCoordinates);
+        google.maps.event.addListener(marker, 'dragend', handleUpdateCoordinates);
+    }
+
+        // Função para atualizar as coordenadas com base na posição do marcador
+        function handleUpdateCoordinates(event) {
+            updateCoordinates({ lat: event.latLng.lat(), lng: event.latLng.lng() });
     }
 
     // Função para atualizar as coordenadas com base na posição do marcador
-    function updateCoordinates(event) {
-        document.getElementById('latitude').value = event.latLng.lat();
-        document.getElementById('longitude').value = event.latLng.lng();
+    function updateCoordinates({lat, lng}) {
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
     }
 
     // Função para geocodificar o endereço e atualizar o mapa
@@ -43,8 +49,7 @@
                 map.setCenter(position);
                 marker.setPosition(position);
 
-                document.getElementById('latitude').value = position.lat();
-                document.getElementById('longitude').value = position.lng();
+                updateCoordinates({ lat: position.lat(), lng: position.lng() });
             } else {
                 console.error('Geocode falhou: ' + status);
                 alert('Falha ao buscar o endereço. Verifique as informações e tente novamente.');
@@ -87,7 +92,10 @@
         const coordinatesFields = document.getElementById('coordinates-fields');
         const mapContainer = document.getElementById('map-container');
 
-        if (userType === 'Empresa' && searchAddress) {
+        const latitude = document.getElementById('latitude').value;
+        const longitude = document.getElementById('longitude').value;
+
+        if ((userType === 'Empresa' && searchAddress) || (latitude && longitude)) {
             coordinatesFields.classList.remove('hidden');
             mapContainer.classList.remove('hidden');
         } else {
