@@ -7,17 +7,16 @@ class MenuService
     public function getMenuForUser($user)
     {
         $menu = $this->dashboardMenu();
-        
+
         if ($user->isAdmin()) {
-            array_push($menu, ...$this->adminMenu());
+            $menu = array_merge($menu, $this->adminMenu(), $this->empresaMenu(), $this->funcionarioMenu(), $this->convidadoMenu());
         } elseif ($user->isEmpresa()) {
-            array_push($menu, ...$this->empresaMenu());
+            $menu = array_merge($menu, $this->empresaMenu());
         } elseif ($user->isFuncionario()) {
-            array_push($menu, ...$this->funcionarioMenu());
-        } 
-        // elseif ($user->isConvidado()) {
-        //     return $this->convidadoMenu();
-        // }
+            $menu = array_merge($menu, $this->funcionarioMenu());
+        } elseif ($user->isConvidado()) {
+            $menu = array_merge($menu, $this->convidadoMenu());
+        }
 
         return $menu;
     }
@@ -37,27 +36,15 @@ class MenuService
     {
         return [
             [
-                'name' => 'Administrador',
-                'route' => '#',
+                'name' => 'Administração',
                 'icon' => 'fas fa-user-shield',
                 'subMenu' => [
-                    ['name' => 'Todos Usuários', 'route' => 'dashboard/usuarios', 'icon' => 'fas fa-users'],
-                    ['name' => 'Relatório completo', 'route' => 'dashboard/relatorio', 'icon' => 'fas fa-chart-pie'],
-                    // Outros itens para admin...
+                    ['name' => 'Gerenciamento de Usuários', 'route' => 'dashboard/usuarios', 'icon' => 'fas fa-users'],
+                    ['name' => 'Relatórios Gerais', 'route' => 'dashboard/relatorio', 'icon' => 'fas fa-chart-pie'],
+                    ['name' => 'Configurações do Sistema', 'route' => 'dashboard/configuracoes', 'icon' => 'fas fa-cogs'],
+                    ['name' => 'Logs de Sistema', 'route' => 'dashboard/logs', 'icon' => 'fas fa-file-alt'],
                 ]
-            ],
-            [
-                'name' => 'Empresa',
-                'route' => '#',
-                'icon' => 'fas fa-building',
-                'subMenu' => $this->empresaMenu()
-            ],
-            [
-                'name' => 'Funcionário',
-                'route' => '#',
-                'icon' => 'fas fa-user-tie',
-                'subMenu' => $this->funcionarioMenu()
-            ],
+            ]
         ];
     }
 
@@ -65,11 +52,14 @@ class MenuService
     {
         return [
             [
-                'name' => 'Relatório',
-                'route' => 'dashboard/relatorio',
-                'icon' => 'fas fa-chart-line',
-            ],
-            // Outros itens para empresa...
+                'name' => 'Gestão Empresarial',
+                'icon' => 'fas fa-building',
+                'subMenu' => [
+                    ['name' => 'Relatórios de Desempenho', 'route' => 'dashboard/relatorios', 'icon' => 'fas fa-chart-line'],
+                    ['name' => 'Gestão de Equipe', 'route' => 'dashboard/equipe', 'icon' => 'fas fa-users-cog'],
+                    ['name' => 'Controle Financeiro', 'route' => 'dashboard/financeiro', 'icon' => 'fas fa-wallet'],
+                ]
+            ]
         ];
     }
 
@@ -77,17 +67,30 @@ class MenuService
     {
         return [
             [
-                'name' => 'Tarefas',
-                'route' => '#',
-                'icon' => 'fas fa-clipboard-list',
-            ],
-            // Outros itens para funcionário...
+                'name' => 'Minhas Atividades',
+                'icon' => 'fas fa-user-tie',
+                'subMenu' => [
+                    ['name' => 'Tarefas Diárias', 'route' => 'dashboard/tarefas', 'icon' => 'fas fa-clipboard-list'],
+                    ['name' => 'Horários e Turnos', 'route' => 'dashboard/horarios', 'icon' => 'fas fa-clock'],
+                    ['name' => 'Meu Perfil', 'route' => 'dashboard/perfil', 'icon' => 'fas fa-id-badge'],
+                ]
+            ]
         ];
     }
 
-    // private function convidadoMenu()
-    // {
-    //     // Como o convidado só tem o Dashboard, retornamos apenas o menu básico
-    //     return $this->dashboardMenu();
-    // }
+    private function convidadoMenu()
+    {
+        return [
+            [
+                'name' => 'Visão Geral',
+                'route' => 'dashboard/visao-geral',
+                'icon' => 'fas fa-eye',
+            ],
+            [
+                'name' => 'Contato',
+                'route' => 'dashboard/contato',
+                'icon' => 'fas fa-envelope',
+            ]
+        ];
+    }
 }

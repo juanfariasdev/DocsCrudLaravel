@@ -8,22 +8,25 @@
     $baseClass = 'flex items-center py-2 px-4 nav-item transition-all duration-300 ease-in-out';
 
     function generateItemClass($item, $baseClass, $class, $activeClass) {
-        return request()->is($item['route']) ? "$baseClass $activeClass" : "$baseClass $class";
+    $route = $item['route'] ?? '#';
+        return request()->is($route) ? "$baseClass $activeClass" : "$baseClass $class";
     }
-
     function formatRoute($route) {
         return '/' . ltrim($route, '/');
     }
 @endphp
 
-<div {{ $attributes->merge(['class' => 'w-56 bg-white shadow-lg']) }}>
+<div {{ $attributes->merge(['class' => 'w-60 bg-white shadow-lg']) }}>
     <div class="p-6 text-xl font-semibold">
         {{ config('app.name', 'Dashboard') }}
     </div>
     <nav class="text-base pt-3">
         @foreach ($menuItems as $menuItem)
             <div>
-                <a href="{{ formatRoute($menuItem['route'] ?? '#') }}" 
+                <a 
+                @if(isset($menuItem['route']))
+                    href="{{ formatRoute($menuItem['route'] ?? '#') }}" 
+                @endif
                    class="{{ generateItemClass($menuItem, $baseClass, $class, $activeClass) }}">
                     <i class="{{ $menuItem['icon'] }} mr-3"></i>
                     <span>{{ $menuItem['name'] }}</span>
