@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-    <div class="lg:w-2/3 xl:w-6/12 p-6 sm:p-12">
-        <div>
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-mx-auto" />
+    <div class="flex flex-col justify-center lg:w-2/3 xl:w-6/12 p-6 sm:p-12 min-h-[700px] h-auto">
+        <div class="w-full flex justify-center">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="max-w-[300px] h-auto w-auto" />
         </div>
-        <div class="mt-12 flex flex-col items-center">
-            <div class="w-full flex-1 mt-8">
+        <div class="flex flex-col items-center mt-12">
+            <div class="w-full flex-1">
                 {{ $slot }}
             </div>
         </div>

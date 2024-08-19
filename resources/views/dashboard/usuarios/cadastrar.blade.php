@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="max-w-3xl mx-auto mt-8 bg-white rounded-lg shadow-lg p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Cadastrar Usuário</h1>
             <button id="generate-data" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">

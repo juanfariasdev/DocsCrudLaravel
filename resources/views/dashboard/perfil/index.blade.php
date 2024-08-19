@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="max-w-3xl mx-auto mt-8 bg-white rounded-lg shadow-lg p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <h1 class="text-2xl font-bold mb-6">Meu Perfil</h1>
 
         @if (session('status'))

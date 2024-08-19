@@ -16,7 +16,7 @@
     }
 @endphp
 
-<div {{ $attributes->merge(['class' => 'w-56 bg-white h-screen shadow-lg']) }}>
+<div {{ $attributes->merge(['class' => 'w-56 bg-white shadow-lg']) }}>
     <div class="p-6 text-xl font-semibold">
         {{ config('app.name', 'Dashboard') }}
     </div>

@@ -1,7 +1,7 @@
 @extends('components.layouts.app')
 
 @section('content')
-    <div class="flex w-full">
+    <div class="flex w-full max-h-screen overflow-hidden">
     <x-partials.menu :menuItems="$menuItems" />
 
         <!-- Área Principal -->
@@ -20,11 +20,11 @@
                         </button>
 
                         <!-- Dropdown -->
-                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-20">
                             <div class="px-4 py-2">
                                 <span class="block text-sm text-gray-700">{{ auth()->user()->name }}</span>
-                                <span class="block text-sm text-gray-500 overflow-hidden decoration-dotted">{{ auth()->user()->email }}</span>
-                                <span class="block text-sm text-gray-500">{{ auth()->user()->type }}</span>
+                                <span class="block text-sm text-gray-500 truncate">{{ auth()->user()->email }}</span>
+                                <span class="block text-sm text-gray-500 font-medium">{{ auth()->user()->type }}</span>
                             </div>
                             <div class="border-t border-gray-100"></div>
                             <a href="{{ route('perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perfil</a>
@@ -35,7 +35,7 @@
             </header>
 
             <!-- Conteúdo Principal -->
-            <main class="flex-1 p-6">
+            <main class="p-6 overflow-y-scroll flex-1">
                 {{ $slot }}
             </main>
         </div>
