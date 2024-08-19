@@ -98,9 +98,6 @@
         const latitude = document.getElementById('latitude').value;
         const longitude = document.getElementById('longitude').value;
 
-        // preciso bloquear o botão que for submit
-        // preciso bloquear o botão que for submit
-
         if (userType === 'Empresa'){
             btnSearchAddress.classList.remove('hidden');
 
