@@ -15,7 +15,7 @@
 #### Avaliação NPS
 - [ ] Implementar sistema de avaliação de estrelas (1 a 5).
 - [ ] Adicionar campo opcional para texto no feedback.
-- [ ] Implementar upload de até 5 fotos por avaliação.
+<!-- - [ ] Implementar upload de até 5 fotos por avaliação. Não necessário no momento-->
 - [ ] Configurar limitação para permitir apenas uma avaliação por local por dia para cada cliente.
 - [ ] Implementar verificação de geolocalização para permitir avaliações apenas dentro de 100 metros do local.
 - [ ] Configurar tempo limite de 10 minutos para completar a avaliação após iniciá-la.

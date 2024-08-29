@@ -52,6 +52,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Business::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(NpsReview::class);
+    }
+
 
     // Constantes para os tipos de usuário
     const TYPE_ADMIN = 'Admin';
