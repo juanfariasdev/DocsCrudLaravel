@@ -54,7 +54,7 @@ class UserService
     {
         $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email,' . $userId,
+            'email' => 'required|email|unique:users,email,' . ($userId ?: 'NULL'),
             'password' => 'nullable|min:6|confirmed',
             'type' => 'nullable|string|in:Admin,Empresa,Funcionario,Convidado',
             'rua' => 'required|string|max:255',
