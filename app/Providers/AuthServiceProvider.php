@@ -41,5 +41,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-profile', function ($user) {
             return $user->isFuncionario() || $user->isEmpresa() || $user->isAdmin();
         });
+
+        // Permissão para fazer reviews
+        Gate::define('review-permission', function ($user) {
+            return $user->isConvidado() || $user->isAdmin();
+        });
     }
 }

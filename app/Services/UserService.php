@@ -74,6 +74,7 @@ class UserService
             $user->password = Hash::make($request->input('password'));
         }
         if ($request->filled('type')) {
+
             $user->type = $request->input('type');
         }
 

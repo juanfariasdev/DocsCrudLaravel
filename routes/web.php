@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -44,6 +45,13 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::middleware('can:review-permission')->group(function () {
+        Route::post('/reviews/{id_empresa}', [ReviewController::class, 'storeReview']);
+        Route::get('/reviews/{id_empresa}/start', [ReviewController::class, 'startReviewRoute'])->name('reviews.start');
+        Route::get('/reviews/{id_empresa}', [ReviewController::class, 'getReviewsByBusiness']);
+        Route::delete('/reviews/{id_empresa}', [ReviewController::class, 'deleteReview']);
+    });
 
     // Rotas protegidas para Gerenciamento de Usuários
     Route::middleware('can:view-dashboard-usuarios')->group(function () {

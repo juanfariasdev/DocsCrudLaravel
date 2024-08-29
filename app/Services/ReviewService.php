@@ -12,43 +12,64 @@ class ReviewService
 {
     public function startReview($businessId)
     {
+        // Verifica se já existe uma avaliação iniciada mas não concluída
         $alreadyStarted = NpsReview::where('user_id', Auth::id())
             ->where('business_id', $businessId)
-            ->whereNull('rating') // Só pega a avaliação se ainda não foi concluída
+            ->whereNull('rating')
             ->first();
 
         if ($alreadyStarted) {
-            return response()->json(['message' => 'Você já iniciou uma avaliação para este local.'], 403);
+            return [
+                'success' => false,
+                'message' => 'Você já iniciou uma avaliação para este local.'
+            ];
         }
 
-        return NpsReview::create([
+        // Cria a avaliação e retorna o objeto
+        $review = NpsReview::create([
             'user_id' => Auth::id(),
             'business_id' => $businessId,
             'started_at' => Carbon::now(),
         ]);
+
+        return [
+            'success' => true,
+            'review' => $review
+        ];
     }
 
     public function storeReview(Request $request, $businessId)
     {
         $this->validateReviewData($request);
 
+        // Busca uma avaliação já iniciada mas não concluída
         $review = NpsReview::where('user_id', Auth::id())
             ->where('business_id', $businessId)
-            ->whereNull('rating') // Avaliação ainda não concluída
+            ->whereNull('rating')
             ->first();
 
         if (!$review) {
-            return response()->json(['message' => 'Avaliação não iniciada ou já concluída.'], 403);
+            return [
+                'success' => false,
+                'message' => 'Avaliação não iniciada ou já concluída.'
+            ];
         }
 
         if (Carbon::now()->diffInMinutes($review->started_at) > 10) {
-            return response()->json(['message' => 'Tempo limite para completar a avaliação expirou.'], 403);
+            return [
+                'success' => false,
+                'message' => 'Tempo limite para completar a avaliação expirou.'
+            ];
         }
 
         if ($this->isOutsideAllowedArea($request->input('latitude'), $request->input('longitude'), $review->business)) {
-            return response()->json(['message' => 'Você está fora da área permitida para avaliação.'], 403);
+            return [
+                'success' => false,
+                'message' => 'Você está fora da área permitida para avaliação.'
+            ];
         }
 
+        // Atualiza a avaliação com nota e feedback
         DB::transaction(function () use ($request, $review) {
             $review->update([
                 'rating' => $request->input('rating'),
@@ -56,7 +77,34 @@ class ReviewService
             ]);
         });
 
-        return $review;
+        return [
+            'success' => true,
+            'review' => $review
+        ];
+    }
+
+    public function deleteReview($reviewId)
+    {
+        $review = NpsReview::findOrFail($reviewId);
+
+        DB::transaction(function () use ($review) {
+            $review->delete();
+        });
+
+        return [
+            'success' => true,
+            'message' => 'Avaliação deletada com sucesso.'
+        ];
+    }
+
+    public function getReviewsByBusiness($businessId)
+    {
+        return NpsReview::where('business_id', $businessId)->get();
+    }
+
+    public function getReviewById($id)
+    {
+        return NpsReview::findOrFail($id);
     }
 
     private function validateReviewData(Request $request)
@@ -85,26 +133,5 @@ class ReviewService
             sin($dLon / 2) * sin($dLon / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         return $earthRadius * $c; // Distância em km
-    }
-
-    public function deleteReview($reviewId)
-    {
-        $review = NpsReview::findOrFail($reviewId);
-
-        DB::transaction(function () use ($review) {
-            $review->delete();
-        });
-
-        return true;
-    }
-
-    public function getReviewsByBusiness($businessId)
-    {
-        return NpsReview::where('business_id', $businessId)->get();
-    }
-
-    public function getReviewById($id)
-    {
-        return NpsReview::findOrFail($id);
     }
 }
