@@ -7,11 +7,24 @@
                 {{ session('status') }}
             </div>
         @endif
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">Reviews de {{ $user->name }}</h2>
+        <div class="flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-bold">Usuário: {{ $user->name }}</h2>
+
+            </div>
             <a href="{{ route('usuarios') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                 Voltar para Usuários
             </a>
+        </div>
+        <div class="mb-2">
+            <h2 class="text-base font-medium">Email: {{ $user->email }}</h2>
+            <h2 class="text-base font-medium">Tipo: {{ $user->type }}</h2>
+            <h2 class="text-base font-medium">CEP: {{ $user->address->cep ?? 'N/A' }}</h2>
+            <h2 class="text-base font-medium">Rua: {{ $user->address->rua ?? 'N/A' }}</h2>
+            <h2 class="text-base font-medium">Número: {{ $user->address->numero ?? 'N/A' }}</h2>
+            <h2 class="text-base font-medium">Bairro: {{ $user->address->bairro ?? 'N/A' }}</h2>
+            <h2 class="text-base font-medium">Cidade: {{ $user->address->cidade ?? 'N/A' }}</h2>
+            <h2 class="text-base font-medium">Estado: {{ $user->address->estado ?? 'N/A' }}</h2>
         </div>
         <h2 class="text-xl font-bold">Reviews Recebidos</h2>
 
@@ -31,7 +44,7 @@
                     <tbody class="text-gray-700">
                         @foreach ($reviews as $review)
                             <tr class="border-b {{ $review->rating ?? 'bg-red-400' }}">
-                                <td class="px-4 py-2">{{ $review->user->name }} {{ $review->user->lastname }} </td>
+                                <td class="px-4 py-2">{{ $review->user->name }}</td>
                                 <td class="px-4 py-2">{{ $review->feedback }}</td>
                                 <td class="px-4 py-2 text-center">{{ $review->rating }}</td>
                                 <td class="px-4 py-2 text-center">{{ $review->created_at->format('d/m/Y H:i') }}</td>
@@ -41,6 +54,7 @@
                 </table>
             </div>
         @endif
+
         <h2 class="text-xl font-bold mt-4">Reviews Feitos</h2>
 
         @if($user->reviews->isEmpty())
@@ -59,7 +73,7 @@
                     <tbody class="text-gray-700">
                         @foreach ($user->reviews as $review)
                             <tr class="border-b {{ $review->rating ?? 'bg-red-400' }}">
-                                <td class="px-4 py-2">{{ $review->user->name }} {{ $review->user->lastname }} </td>
+                                <td class="px-4 py-2">{{ $review->user->name }}</td>
                                 <td class="px-4 py-2">{{ $review->feedback }}</td>
                                 <td class="px-4 py-2 text-center">{{ $review->rating }}</td>
                                 <td class="px-4 py-2 text-center">{{ $review->created_at->format('d/m/Y H:i') }}</td>
