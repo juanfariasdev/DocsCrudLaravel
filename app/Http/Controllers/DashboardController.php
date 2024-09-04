@@ -47,6 +47,14 @@ class DashboardController extends Controller
 
         return view('dashboard.usuarios.index', compact('users'));
     }
+    public function showUsuario($id)
+    {
+        $user = $this->userService->getUserById($id);
+        $reviews = $user->business->reviews;
+
+
+        return view('dashboard.usuarios.visualizar', compact('user', 'reviews'));
+    }
     public function usuarioById($id)
     {
         $user = $this->userService->getUserById($id);

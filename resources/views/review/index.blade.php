@@ -23,7 +23,7 @@
                             <input type="radio" id="rating-{{ $i }}" name="rating" value="{{ $i }}" class="hidden peer"
                                 required>
                             <label for="rating-{{ $i }}"
-                                class="cursor-pointer text-gray-400 text-3xl peer-checked:text-yellow-400">
+                                class="cursor-pointer text-yellow-400 text-3xl peer-checked:text-red-400 peer-out-of-range:text-green-400">
                                 <i class="fas fa-star"></i>
                             </label>
                         @endfor

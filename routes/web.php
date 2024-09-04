@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:view-dashboard-usuarios')->group(function () {
         Route::get('/dashboard/usuarios', [DashboardController::class, 'usuarios'])->name('usuarios');
         Route::get('/dashboard/usuarios/cadastrar', [DashboardController::class, 'showStoreUsuario'])->name('usuarios.cadastrar');
+        Route::get('/dashboard/usuarios/{id}/visualizar', [DashboardController::class, 'showUsuario'])->name('usuarios.visualizar');
+
         Route::get('/dashboard/usuarios/{id}', [DashboardController::class, 'usuarioById'])->name('usuarios.editar');
     });
 

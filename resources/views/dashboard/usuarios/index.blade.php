@@ -9,7 +9,8 @@
         @endif
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-bold">Gerenciamento de Usuários</h2>
-            <a href="{{ route('usuarios.cadastrar') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <a href="{{ route('usuarios.cadastrar') }}"
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                 Cadastrar Novo Usuário
             </a>
         </div>
@@ -25,23 +26,29 @@
                 </thead>
                 <tbody class="text-gray-700">
                     @foreach ($users as $user)
-                    <tr class="border-b">
-                        <td class="px-4 py-2">{{ $user->name }}</td>
-                        <td class="px-4 py-2">{{ $user->email }}</td>
-                        <td class="px-4 py-2 text-center">{{ $user->type }}</td>
-                        <td class="px-4 py-2 text-center">
-                            <div class="flex justify-center space-x-4">
-                                <a href="{{ route('usuarios.editar', ['id' => $user->id]) }}" class="text-blue-500 hover:text-blue-700">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                @if (Auth::id() !== $user->id)
-                                    <a @click="openModal({{ $user }})" class="text-red-500 hover:text-red-700 cursor-pointer">
-                                        <i class="fas fa-trash-alt"></i>
+                        <tr class="border-b">
+                            <td class="px-4 py-2">{{ $user->name }}</td>
+                            <td class="px-4 py-2">{{ $user->email }}</td>
+                            <td class="px-4 py-2 text-center">{{ $user->type }}</td>
+                            <td class="px-4 py-2 text-center">
+                                <div class="flex justify-center space-x-4">
+                                    <a href="{{ route('usuarios.editar', ['id' => $user->id]) }}"
+                                        class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
+                                    <a href="{{ route('usuarios.visualizar', ['id' => $user->id]) }}"
+                                        class="text-blue-500 hover:text-blue-700">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    @if (Auth::id() !== $user->id)
+                                        <a @click="openModal({{ $user }})"
+                                            class="text-red-500 hover:text-red-700 cursor-pointer">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -53,13 +60,15 @@
                 <h3 class="text-lg font-bold mb-4">Confirmar Exclusão</h3>
                 <p class="mb-4">Tem certeza de que deseja excluir o usuário <strong x-text="name"></strong>?</p>
                 <div class="flex justify-end">
-                    <button @click="closeModal()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">
+                    <button @click="closeModal()"
+                        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">
                         Cancelar
                     </button>
                     <form :action="`/dashboard/usuarios/${userId}`" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        <button type="submit"
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                             Deletar
                         </button>
                     </form>
