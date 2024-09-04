@@ -30,7 +30,7 @@
                     </thead>
                     <tbody class="text-gray-700">
                         @foreach ($reviews as $review)
-                            <tr class="border-b">
+                            <tr class="border-b {{ $review->rating ?? 'bg-red-400' }}">
                                 <td class="px-4 py-2">{{ $review->user->name }} {{ $review->user->lastname }} </td>
                                 <td class="px-4 py-2">{{ $review->feedback }}</td>
                                 <td class="px-4 py-2 text-center">{{ $review->rating }}</td>
@@ -58,7 +58,7 @@
                     </thead>
                     <tbody class="text-gray-700">
                         @foreach ($user->reviews as $review)
-                            <tr class="border-b">
+                            <tr class="border-b {{ $review->rating ?? 'bg-red-400' }}">
                                 <td class="px-4 py-2">{{ $review->user->name }} {{ $review->user->lastname }} </td>
                                 <td class="px-4 py-2">{{ $review->feedback }}</td>
                                 <td class="px-4 py-2 text-center">{{ $review->rating }}</td>
