@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Business;
 use App\Models\NpsReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,32 +11,43 @@ use Carbon\Carbon;
 
 class ReviewService
 {
+    public function getBusinessId($id)
+    {
+        return Business::where('user_id', $id)->value('id');
+
+    }
+    public function getBusiness($id)
+    {
+        return Business::where('id', $id)->first();
+
+    }
     public function startReview($businessId)
     {
-        // Verifica se já existe uma avaliação iniciada mas não concluída
-        $alreadyStarted = NpsReview::where('user_id', Auth::id())
-            ->where('business_id', $businessId)
-            ->whereNull('rating')
-            ->first();
 
-        if ($alreadyStarted) {
+        if ($businessId) {
+            // Verifica se já existe uma avaliação iniciada mas não concluída
+            $alreadyStarted = NpsReview::where('user_id', Auth::id())
+                ->where('business_id', $businessId)
+                ->whereNull('rating')
+                ->first();
+
+            if ($alreadyStarted) {
+                return [
+                    'success' => false,
+                    'message' => 'Você já iniciou uma avaliação para este local.'
+                ];
+            }
+            $review = NpsReview::create([
+                'user_id' => Auth::id(),
+                'business_id' => $businessId,
+                'started_at' => Carbon::now(),
+            ]);
+
             return [
-                'success' => false,
-                'message' => 'Você já iniciou uma avaliação para este local.'
+                'success' => true,
+                'review' => $review
             ];
         }
-
-        // Cria a avaliação e retorna o objeto
-        $review = NpsReview::create([
-            'user_id' => Auth::id(),
-            'business_id' => $businessId,
-            'started_at' => Carbon::now(),
-        ]);
-
-        return [
-            'success' => true,
-            'review' => $review
-        ];
     }
 
     public function storeReview(Request $request, $businessId)
@@ -45,8 +57,9 @@ class ReviewService
         // Busca uma avaliação já iniciada mas não concluída
         $review = NpsReview::where('user_id', Auth::id())
             ->where('business_id', $businessId)
-            ->whereNull('rating')
+            // ->whereNull('rating')
             ->first();
+
 
         if (!$review) {
             return [
@@ -62,10 +75,11 @@ class ReviewService
             ];
         }
 
-        if ($this->isOutsideAllowedArea($request->input('latitude'), $request->input('longitude'), $review->business)) {
+        $isOutsideAllowedArea = $this->isOutsideAllowedArea($request->input('latitude'), $request->input('longitude'), $review->business);
+        if ($isOutsideAllowedArea['isOutside']) {
             return [
                 'success' => false,
-                'message' => 'Você está fora da área permitida para avaliação.'
+                'message' => 'Você está fora da área permitida para avaliação. você está há ' . $isOutsideAllowedArea['distance'] . ' do local.'
             ];
         }
 
@@ -80,6 +94,7 @@ class ReviewService
         return [
             'success' => true,
             'review' => $review
+
         ];
     }
 
@@ -117,8 +132,11 @@ class ReviewService
 
     private function isOutsideAllowedArea($userLat, $userLng, $business)
     {
-        $distance = $this->calculateDistance($userLat, $userLng, $business->latitude, $business->longitude);
-        return $distance > 0.1; // 0.1 km = 100 metros
+        $distance = $this->calculateDistance($userLat, $userLng, $business->latitude, $business->longitude);//+
+        return [
+            'isOutside' => $distance > 0.1,//+
+            'distance' => round($distance, 2) . ' metros' // Distância em metros para mostrar mais precisão//+
+        ]; // 0.1 km = 100 metros
     }
 
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)

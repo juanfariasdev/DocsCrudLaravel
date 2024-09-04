@@ -14,11 +14,14 @@ class ReviewController extends Controller
     {
         $this->reviewService = $reviewService;
     }
+
     public function startReviewRoute($id_empresa)
     {
         $user = Auth::user();
-        $result = $this->reviewService->startReview($id_empresa);
-        return view('review.index', compact('user'));
+        $businessId = $this->reviewService->getBusinessId($id_empresa);
+        $result = $this->reviewService->startReview($businessId);
+        $business = $this->reviewService->getBusiness($businessId);
+        return view('review.index', compact('user', 'business'));
     }
 
     public function startReview($id_empresa)
@@ -37,7 +40,8 @@ class ReviewController extends Controller
 
     public function storeReview(Request $request, $id_empresa)
     {
-        $result = $this->reviewService->storeReview($request, $id_empresa);
+        $businessId = $this->reviewService->getBusinessId($id_empresa);
+        $result = $this->reviewService->storeReview($request, $businessId);
 
         if (!$result['success']) {
             return response()->json(['message' => $result['message']], 403);

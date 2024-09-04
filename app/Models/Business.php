@@ -16,6 +16,14 @@ class Business extends Model
         'descricao',
     ];
 
+
+    /**
+     * Nome da tabela associada ao modelo.
+     *
+     * @var string
+     */
+    protected $table = 'business';
+
     /**
      * Relacionamento com o usuário.
      */

@@ -19,7 +19,7 @@ class UserService
         $this->updateUserData($user, $request);
 
         // Update or create address
-        $this->updateOrCreateAddress($user, $request);
+        $this->updateOrCreateBusiness($user, $request);
 
         return $user;
     }
@@ -31,6 +31,9 @@ class UserService
         $user = $this->createUser($request);
 
         $this->updateOrCreateAddress($user, $request);
+
+        $this->updateOrCreateBusiness($user, $request);
+
 
         return $user;
     }
@@ -104,5 +107,20 @@ class UserService
             'password' => Hash::make($request->input('password')),
             'type' => $request->input('type'),
         ]);
+    }
+    private function updateOrCreateBusiness(User $user, Request $request)
+    {
+        /*        'user_id',
+        'latitude',
+        'longitude',
+        'descricao', */
+        return $user->business()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+                'descricao' => '',
+            ]
+        );
     }
 }

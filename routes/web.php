@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::middleware('can:review-permission')->group(function () {
-        Route::post('/reviews/{id_empresa}', [ReviewController::class, 'storeReview']);
+        Route::post('/reviews/{id_empresa}', [ReviewController::class, 'storeReview'])->name('reviews.store');
         Route::get('/reviews/{id_empresa}/start', [ReviewController::class, 'startReviewRoute'])->name('reviews.start');
         Route::get('/reviews/{id_empresa}', [ReviewController::class, 'getReviewsByBusiness']);
         Route::delete('/reviews/{id_empresa}', [ReviewController::class, 'deleteReview']);

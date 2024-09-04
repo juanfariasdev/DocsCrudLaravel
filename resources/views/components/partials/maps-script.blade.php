@@ -1,6 +1,6 @@
 <script async
     src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap">
-</script>
+    </script>
 
 <script>
     let map;
@@ -30,20 +30,20 @@
         google.maps.event.addListener(marker, 'dragend', handleUpdateCoordinates);
     }
 
-        // Função para atualizar as coordenadas com base na posição do marcador
-        function handleUpdateCoordinates(event) {
-            updateCoordinates({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+    // Função para atualizar as coordenadas com base na posição do marcador
+    function handleUpdateCoordinates(event) {
+        updateCoordinates({ lat: event.latLng.lat(), lng: event.latLng.lng() });
     }
 
     // Função para atualizar as coordenadas com base na posição do marcador
-    function updateCoordinates({lat, lng}) {
+    function updateCoordinates({ lat, lng }) {
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lng;
     }
 
     // Função para geocodificar o endereço e atualizar o mapa
     function geocodeAddress(address) {
-        geocoder.geocode({ address: address }, function(results, status) {
+        geocoder.geocode({ address: address }, function (results, status) {
             if (status === 'OK') {
                 const position = results[0].geometry.location;
                 map.setCenter(position);
@@ -73,18 +73,22 @@
         }
     }
 
+    const search-address = document.getElementById('search-address');
+
     // Evento do botão de pesquisa
-    document.getElementById('search-address').addEventListener('click', function() {
-        const userType = document.getElementById('type').value;
-        if (userType === 'Empresa') {
-            const address = getAddressFromForm();
-            if (address) {
-                searchAddress = true;
-                geocodeAddress(address);
-                handleUserTypeChange(); // Exibe o mapa se o usuário for do tipo Empresa
+    if (search - address) {
+        document.getElementById('search-address').addEventListener('click', function () {
+            const userType = document.getElementById('type').value;
+            if (userType === 'Empresa') {
+                const address = getAddressFromForm();
+                if (address) {
+                    searchAddress = true;
+                    geocodeAddress(address);
+                    handleUserTypeChange(); // Exibe o mapa se o usuário for do tipo Empresa
+                }
             }
-        }
-    });
+        });
+    }
 
     // Exibe ou oculta o mapa com base no tipo de usuário
     function handleUserTypeChange() {
@@ -98,28 +102,28 @@
         const latitude = document.getElementById('latitude').value;
         const longitude = document.getElementById('longitude').value;
 
-        if (userType === 'Empresa'){
+        if (userType === 'Empresa') {
             btnSearchAddress.classList.remove('hidden');
 
             submitButtons.forEach(button => {
                 button.disabled = true;
             });
 
-        if ((searchAddress || (latitude && longitude))) {
-            coordinatesFields.classList.remove('hidden');
-            mapContainer.classList.remove('hidden');
+            if ((searchAddress || (latitude && longitude))) {
+                coordinatesFields.classList.remove('hidden');
+                mapContainer.classList.remove('hidden');
 
-            submitButtons.forEach(button => {
-                button.disabled = false;
-            });
-        } 
+                submitButtons.forEach(button => {
+                    button.disabled = false;
+                });
+            }
         } else {
             coordinatesFields.classList.add('hidden');
             mapContainer.classList.add('hidden');
             btnSearchAddress.classList.add('hidden');
             submitButtons.forEach(button => {
-            button.disabled = false;
-        });
+                button.disabled = false;
+            });
 
         }
     }

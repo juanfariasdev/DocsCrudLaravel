@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('nps_reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Usuário que fez a avaliação
-            $table->foreignId('business_id')->constrained('business')->onDelete('cascade'); // Empresa que foi avaliada
+            $table->foreignId('business_id')->constrained()->onDelete('cascade'); // Empresa que foi avaliada
             $table->tinyInteger('rating')->unsigned(); // Avaliação de 1 a 5 estrelas
             $table->text('feedback')->nullable(); // Texto opcional para feedback
             $table->timestamp('started_at')->nullable();

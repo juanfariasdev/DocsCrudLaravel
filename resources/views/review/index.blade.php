@@ -8,10 +8,11 @@
         </div>
 
         <div class="flex flex-col items-center flex-1">
-            <h1 class="text-2xl font-bold text-gray-800 mb-4">Avaliação de {{ $business->name }}</h1>
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">Avaliação de {{ $business->user->name }}</h1>
 
             <!-- Formulário de Avaliação -->
-            <form method="POST" action="{{ route('reviews.store', ['id_empresa' => $business->id]) }}" class="w-full">
+            <form method="POST" action="{{ route('reviews.store', ['id_empresa' => $business->user->id]) }}"
+                class="w-full">
                 @csrf
 
                 <!-- Campo de Nota (Estrelas) -->
@@ -38,12 +39,14 @@
                 </div>
 
                 <!-- Campos de Latitude e Longitude -->
-                <input type="hidden" name="latitude" value="{{ old('latitude') }}" id="latitude">
-                <input type="hidden" name="longitude" value="{{ old('longitude') }}" id="longitude">
+                <x-partials.input-field type="text" name="latitude" label="Latitude" id="latitude"
+                    value="{{ old('latitude') }}" placeholder="Latitude" />
+                <x-partials.input-field type="text" name="longitude" label="Longitude" id="longitude"
+                    value="{{ old('longitude') }}" placeholder="Longitude" />
 
                 <!-- Mapa para Confirmação de Localização -->
                 <div id="map-container" class="mb-6 h-64">
-                    <div id="map" class="w-full h-full bg-gray-200"></div>
+                    <div id="map" class="w-full h-full"></div>
                 </div>
 
                 <!-- Botão de Submissão -->
@@ -56,10 +59,11 @@
             </form>
         </div>
     </div>
-
     <!-- Lado direito com imagem de fundo (para telas grandes) -->
     <div class="hidden lg:flex flex-1 bg-cover bg-right bg-no-repeat"
         style="background-image: url({{ asset('images/background.png') }});">
     </div>
+
 </div>
+
 @endsection
